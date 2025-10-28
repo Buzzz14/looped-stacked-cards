@@ -1,127 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Looped Stacked Cards</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Looped Stacked Cards</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
 
-    body {
-      min-height: 100vh;
-      background: #f2f2f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  <body>
+    <div class="slider">
+      <img
+        class="item"
+        src="https://i.pinimg.com/1200x/6f/9f/b1/6f9fb19956a4c1af06f1c9eccc7f91ca.jpg"
+        alt="img1"
+      />
+      <img
+        class="item"
+        src="https://i.pinimg.com/736x/43/64/6f/43646f0cc47ae98e4d56002f39a68f80.jpg"
+        alt="img2"
+      />
+      <img
+        class="item"
+        src="https://i.pinimg.com/736x/a6/31/d6/a631d623d718fdd26d9b2db8da841ff0.jpg"
+        alt="img3"
+      />
+      <img
+        class="item"
+        src="https://i.pinimg.com/736x/1c/68/6a/1c686ab70cc4ebc6165f5dc189d394d5.jpg"
+        alt="img4"
+      />
+      <img
+        class="item"
+        src="https://i.pinimg.com/1200x/60/cc/87/60cc8744fb901d18eadd51dffba37043.jpg"
+        alt="img5"
+      />
+    </div>
 
-    .slider {
-      position: relative;
-      width: 300px;
-      height: 200px;
-      transform: translate(-20%, -50%);
-      cursor: pointer;
-    }
-
-    .item {
-      position: absolute;
-      width: 300px;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      object-position: top;
-      border: 1px solid rgba(0,0,0,0.2);
-    }
-
-    .item:nth-child(5) {
-      left: 0;
-      top: 0;
-    }
-
-    .item:nth-child(4) {
-      left: 20px;
-      top: -20px;
-    }
-
-    .item:nth-child(3) {
-      left: 40px;
-      top: -40px;
-    }
-
-    .item:nth-child(2) {
-      left: 60px;
-      top: -60px;
-    }
-
-    .item:nth-child(1) {
-      left: 80px;
-      top: -80px;
-    }
-  </style>
-</head>
-<body>
-  <div class="slider">
-    <img class="item" src="https://i.pinimg.com/1200x/6f/9f/b1/6f9fb19956a4c1af06f1c9eccc7f91ca.jpg" alt="" />
-    <img class="item" src="https://i.pinimg.com/736x/43/64/6f/43646f0cc47ae98e4d56002f39a68f80.jpg" alt="" />
-    <img class="item" src="https://i.pinimg.com/736x/a6/31/d6/a631d623d718fdd26d9b2db8da841ff0.jpg" alt="" />
-    <img class="item" src="https://i.pinimg.com/736x/1c/68/6a/1c686ab70cc4ebc6165f5dc189d394d5.jpg" alt="" />
-    <img class="item" src="https://i.pinimg.com/1200x/60/cc/87/60cc8744fb901d18eadd51dffba37043.jpg" alt="" />
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
-  
-  <script>
-    const slider = document.querySelector(".slider");
-    const items = gsap.utils.toArray(".item");
-
-    function moveCard() {
-      const lastItem = slider.querySelector(".item:last-child");
-
-      if (slider && lastItem) {
-        lastItem.style.display = "none";
-        const newItem = document.createElement("img");
-        newItem.className = lastItem.className; 
-        newItem.src = lastItem.src;
-        slider.insertBefore(newItem, slider.firstChild); 
-      }
-    }
-
-    slider.addEventListener("click", (e) => {
-      let state = Flip.getState(".item");
-      console.log(state)
-
-      moveCard();
-
-      Flip.from(state, {
-        targets: ".item",
-        ease: "sine.inOut",
-        absolute: true,
-        onEnter: (elements) => {
-          return gsap.from(elements, {
-            yPercent: 20,
-            opacity: 0,
-            ease: "expo.out"
-          });
-        },
-        onLeave: (element) => {
-          return gsap.to(element, {
-            yPercent: 20,
-            xPercent: -20,
-            transformOrigin: "bottom left",
-            opacity: 0,
-            ease: "expo.out",
-            onComplete() {
-              slider.removeChild(element[0]);
-            }
-          });
-        }
-      });
-    });
-  </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
 </html>
-
